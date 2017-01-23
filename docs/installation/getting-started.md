@@ -265,6 +265,13 @@ Install the first service, which is Ceph. If all instructions have been followed
 admin@kubenode01:~$ helm install --name=ceph local/ceph --namespace=ceph
 ```
 
+By default, ceph will be installed with the system using the space in a host mounted directory.  This can
+be overridden by adding additional set parameters.  This will tell each osd to use physical disks
+/dev/sdb and /dev/sdc as drives.
+```
+admin@kubenode01:~$ helm install --set network.public=$osd_public_network,osd.daemon="osd",osd.zap="1",ods.disks="0:sdb 1:sdc" --name=ceph local/ceph --namespace=ceph
+```
+
 ## Bootstrap Installation
 At this time (and before verification of Ceph) you'll need to install the `bootstrap` chart. The `bootstrap` chart will install secrets for both the `ceph` and `openstack` namespaces for the general StorageClass:
 ```

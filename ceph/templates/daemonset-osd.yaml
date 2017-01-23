@@ -60,7 +60,14 @@ spec:
             privileged: true
           env:
             - name: CEPH_DAEMON
-              value: osd_directory
+              value: {{ .Values.osd.daemon }}
+            # Type, Disks, and Zap are ignored for directory-based OSDs.
+            - name: OSD_TYPE
+              value: {{ .Values.osd.type }}
+            - name: OSD_DISKS
+              value: {{ .Values.osd.disks | quote }}
+            - name: OSD_FORCE_ZAP
+              value: {{ .Values.osd.zap | quote }}
             - name: KV_TYPE
               value: k8s
             - name: CLUSTER
