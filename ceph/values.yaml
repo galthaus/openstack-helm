@@ -36,6 +36,13 @@ network:
     rgw_ingress: 80
     rgw_target: 8088
 
+osd:
+  # Change to osd to use reall disks and set zap to 1
+  daemon: osd_directory
+  type: devices
+  disks: "0:sdb 1:sdc 2:sdd 3:sde"
+  zap: "0"
+
 storage:
   osd_directory: /var/lib/openstack-helm/ceph/osd
   var_directory: /var/lib/openstack-helm/ceph/ceph
